@@ -1,17 +1,18 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Param,
   Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put
 } from '@nestjs/common';
-import { ConfigurationsService } from './configurations.service';
 import { Configuration } from './configurations.model';
+import { ConfigurationsService } from './configurations.service';
 
 @Controller('configurations')
 export class ConfigurationsController {
-  constructor(private readonly prismaService: ConfigurationsService) {}
+  constructor(private readonly prismaService: ConfigurationsService) { }
 
   @Get()
   async getAllConfiguration() {
@@ -26,5 +27,9 @@ export class ConfigurationsController {
   @Put(':id')
   async updateConfiguration(@Param('id') id: number, @Body() updatedConfiguration: Configuration) {
     return this.prismaService.updateConfiguration(id, updatedConfiguration);
+  }
+  @Delete(':id')
+  async deleteConfiguration(@Param('id') id: number,) {
+    return this.prismaService.deleteConfiguration(id);
   }
 }

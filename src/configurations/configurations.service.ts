@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Delete } from '@nestjs/common';
 import { PrismaService } from "src/prisma.service";
 import {Configuration} from "./configurations.model"
 
@@ -20,6 +20,11 @@ export class ConfigurationsService {
     return this.prismaService.configuration.update({
       where: { id },
       data,
+    }) as Promise<Configuration>
+  }
+  async deleteConfiguration(id: number, ):Promise<Configuration>{
+    return this.prismaService.configuration.delete({
+      where: { id },
     }) as Promise<Configuration>
   }
 }
